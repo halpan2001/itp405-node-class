@@ -11,6 +11,51 @@ let knex = require('knex');
 //In node you have to create a server in code.
 let app = express();
 
+
+//LAB CONTENT
+app.get('/api/artists', function(request, response){
+  let filter = request.query.filter;
+  console.log(request.query.filter);
+
+  let connection = knex({
+    client: 'sqlite3',
+    connection: {
+      filename: 'chinook.db'
+    }
+  });
+
+  if (filter){
+    connection
+      .select()
+      .from('artists')
+      .where('Name', 'like', `%${filter}%`)
+      .then((artists) => {
+      var mArtists = artists.map(artist =>{
+        var rObj = {};
+        rObj["id"] = artist.ArtistId;
+        rObj["name"] = artist.Name;
+        return rObj;
+      });
+      response.json(mArtists);
+    });
+  }else{
+    connection
+      .select()
+      .from('artists')
+      .then((artists) => {
+      var mArtists = artists.map(artist =>{
+        var rObj = {};
+        rObj["id"] = artist.ArtistId;
+        rObj["name"] = artist.Name;
+        return rObj;
+      });
+      response.json(mArtists);
+    });
+  }
+
+
+});
+
 //create endpoints/routes
 app.get('/api/genres', function(request, response){
 
