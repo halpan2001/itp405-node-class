@@ -1,0 +1,12 @@
+/* file that manages all the packages that node needs to operate
+and puts them into a node_modules folder
+NOTE: Remove the comment and run 'npm install' in the terminal
+to run this file
+ */
+ {
+  "dependencies": {
+    "express": "4.16.4",
+    "knex": "0.16.3",
+    "sqlite3": "4.0.6"
+  }
+}
